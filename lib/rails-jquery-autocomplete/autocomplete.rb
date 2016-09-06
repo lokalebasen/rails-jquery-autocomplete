@@ -72,7 +72,7 @@ module RailsJQueryAutocomplete
             items = {}
           end
 
-          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data], &block), root: false
+          render :json => json_for_autocomplete(items, options[:display_value] ||= method, options[:extra_data], options[:extra_methods], &block), root: false
         end
       end
     end
@@ -96,12 +96,12 @@ module RailsJQueryAutocomplete
     # Can be overriden to show whatever you like
     # Hash also includes a key/value pair for each method in extra_data
     #
-    def json_for_autocomplete(items, method, extra_data=[])
+    def json_for_autocomplete(items, method, extra_data=[], extra_methods=[])
       items = items.collect do |item|
         hash = HashWithIndifferentAccess.new({"id" => item.id.to_s, "label" => item.send(method), "value" => item.send(method)})
-        extra_data.each do |datum|
+        extra_methods.each do |datum|
           hash[datum] = item.send(datum)
-        end if extra_data
+        end if extra_methods
         # TODO: Come back to remove this if clause when test suite is better
         hash
       end
