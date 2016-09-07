@@ -1,3 +1,7 @@
+# Warning
+This fork of `rails-jquery-autocomplete` gem was created to add option to include custom methods like `extra_data`. Original implementation will call the column name that you specify in `extra_data` attribute instead of calling the method.
+
+A refactoring is needed.
 ## Status
 
 1. This is the officially maintained fork of
